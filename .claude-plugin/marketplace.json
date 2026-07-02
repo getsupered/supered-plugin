@@ -1,0 +1,18 @@
+{
+  "name": "supered",
+  "owner": {
+    "name": "Supered",
+    "url": "https://supered.io"
+  },
+  "metadata": {
+    "description": "Official Supered plugins for Claude — onboarding, environment setup, and MCP integration.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "supered",
+      "source": "./",
+      "description": "Set up and manage a Supered environment with Claude. Connects the Supered MCP and guides you through collections, content, guides, page triggers, process boards, sync-engine rules, and action plans."
+    }
+  ]
+}
