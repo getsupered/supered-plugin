@@ -7,7 +7,7 @@
     "url": "https://supered.io"
   },
   "homepage": "https://supered.io",
-  "repository": "https://github.com/supered-io/supered-plugin",
+  "repository": "https://github.com/getsupered/supered-io",
   "license": "MIT",
   "keywords": ["supered", "onboarding", "mcp", "crm", "hubspot", "salesforce", "process-boards", "action-plans"]
 }
