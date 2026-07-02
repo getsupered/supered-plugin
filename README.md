@@ -4,10 +4,6 @@ Set up and manage a [Supered](https://supered.io) environment directly from Clau
 both a **plugin** and a **marketplace** — installing it connects the Supered MCP and gives Claude
 a set of skills for onboarding and building out a Supered workspace.
 
-> **Before publishing:** this scaffold uses the placeholder GitHub slug
-> `supered-io/supered-plugin` in the install commands, `plugin.json` (`repository`), and
-> `marketplace.json`. Replace it with the real `owner/repo` once the repository is created.
-
 ## What it does
 
 - **Connects the Supered MCP** (`https://app.supered.io/mcp`, OAuth2) so Claude can read and
@@ -18,7 +14,7 @@ a set of skills for onboarding and building out a Supered workspace.
 ## Install
 
 ```
-/plugin marketplace add supered-io/supered-plugin
+/plugin marketplace add getsupered/supered-plugin
 /plugin install supered@supered
 /reload-plugins
 ```
