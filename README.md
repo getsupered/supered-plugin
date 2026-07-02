@@ -14,7 +14,7 @@ a set of skills for onboarding and building out a Supered workspace.
 ## Install
 
 ```
-/plugin marketplace add getsupered/supered-io
+/plugin marketplace add getsupered/supered-plugin
 /plugin install supered@supered
 /reload-plugins
 ```
@@ -44,7 +44,7 @@ Start with: `/supered:setup-supered`
 ## Layout
 
 ```
-supered-io/
+supered-plugin/
 ├── .claude-plugin/
 │   ├── plugin.json          # plugin manifest
 │   └── marketplace.json     # marketplace catalog (this repo hosts one plugin)
@@ -64,13 +64,13 @@ supered-io/
 Test without installing from a marketplace:
 
 ```
-claude --plugin-dir ./supered-io
+claude --plugin-dir ./supered-plugin
 ```
 
 Then run `/reload-plugins` after edits, and validate before publishing:
 
 ```
-claude plugin validate ./supered-io
+claude plugin validate ./supered-plugin
 ```
 
 ## Distribution & updates
