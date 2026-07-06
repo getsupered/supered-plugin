@@ -27,6 +27,18 @@ prerequisite for those features.
 
 After the CRM is connected, hand off to **build-rules-and-boards**.
 
+## Precheck before any CRM operation
+
+Before answering anything that needs CRM data or creates a CRM-scoped resource (rules, rulesets,
+process boards; reading record types/fields/counts), verify the needed provider is connected via
+`whoami` first — don't call provider tools that will just fail:
+
+- If the user names a provider that isn't connected, don't call it — acknowledge the goal, note
+  they'll need to connect that CRM, and point them to the connection flow.
+- If the user didn't name one but you need it, check what's connected: if **only one** CRM is
+  connected, default to it silently (don't ask). If **both** are connected, ask which. If
+  **neither**, point them to connect one and offer to continue once it's set up.
+
 ## Other MCPs (Slack, etc.)
 
 Supered's plugin coordinates onboarding; it does not reimplement other tools. If the user wants
