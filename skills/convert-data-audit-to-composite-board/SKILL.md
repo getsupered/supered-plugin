@@ -14,9 +14,7 @@ description: >
 - **DataAudit** — a report of `results`, each with a `data_audit_point_definition` (the audit
   check: `label`, `object_display_name`, `tags`) and a score. This is the *only* source of
   object types, function tags, and rule names — never invent, rename, or reformat any of these
-  values. Note: `data_audit_logic` / `total_logic` may be stripped from the sanitized payload —
-  don't expect or ask for rule DSL from this data; boards created here group by audit result,
-  not by re-deriving the underlying rule logic.
+  values. 
 - **Function tags** (`data_audit_point_definition.tags`) — categories like `Data Hygiene`,
   `Sales`. Used to filter which audit points become rules.
 - **Object type** (`data_audit_point_definition.object_display_name`) — e.g. `Contacts`,
