@@ -7,7 +7,7 @@ description: >
   name/domain/ID. Requires a connected CRM (see connect-integrations).
 ---
 
-# Build data audit boards
+# Convert Data Audit to Composite Board
 
 ## Concepts
 
