@@ -16,11 +16,16 @@ a set of skills for onboarding and building out a Supered workspace.
 ```
 /plugin marketplace add getsupered/supered-plugin
 /plugin install supered@supered
-/reload-plugins
 ```
 
-On first use, Claude opens the Supered OAuth flow in your browser. Approve access, then confirm
-with the `whoami` tool. Tokens are handled by Claude Code — you never paste them into chat.
+Then **activate and sign in**:
+
+1. Restart Claude Code so the plugin's MCP server loads. (On recent versions you can run
+   `/reload-plugins` instead of restarting; if it reports "Unknown slash command," your Claude
+   Code is older than that feature — just restart, or run `claude update` first.)
+2. Run `/mcp`, select **Supered**, and choose **Authenticate** to complete the OAuth sign-in in
+   your browser. (Shell equivalent: `claude mcp login supered`.)
+3. Confirm with the `whoami` tool. Tokens are handled by Claude Code — you never paste them into chat.
 
 Manual MCP connection (other clients, or without the plugin):
 
