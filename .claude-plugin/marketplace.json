@@ -5,8 +5,7 @@
     "url": "https://supered.io"
   },
   "metadata": {
-    "description": "Official Supered plugins for Claude — onboarding, environment setup, and MCP integration.",
-    "version": "0.1.0"
+    "description": "Official Supered plugins for Claude — onboarding, environment setup, and MCP integration."
   },
   "plugins": [
     {
