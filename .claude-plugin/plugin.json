@@ -1,7 +1,7 @@
 {
   "name": "supered",
   "description": "Set up and manage a Supered environment with Claude. Connects the Supered MCP, then guides creating collections, content, guides, page triggers, process boards, sync-engine rules/rulesets, and action plans — following Supered best practices.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "author": {
     "name": "Supered",
     "url": "https://supered.io"
