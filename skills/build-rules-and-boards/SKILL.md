@@ -32,7 +32,7 @@ description: >
 1. Confirm the CRM is connected (`whoami`); if not, run **connect-integrations**.
 2. Load the **`dsl_specification`** prompt for exact syntax. **Do not guess DSL.** If a create
    fails, re-read the spec rather than retrying a different guess.
-3. Call `list_provider_record_types`, then `list_provider_record_fields` for the target record
+3. Call `list_provider_record_types`, then `provider_record_detail` for the target record
    type. Use exact field `name` values (never the human label) in DSL, and option `value` (not
    label) for enum comparisons.
 
@@ -61,7 +61,7 @@ runs across **every** pipeline — almost always noisy or wrong (a sales-pipelin
 CS deals, etc.).
 
 1. **Ask first.** Before constructing anything, ask which pipeline(s) to scope to. Surface the
-   `pipeline` enum values from `list_provider_record_fields` so the user picks by label.
+   `pipeline` enum values from `provider_record_detail` so the user picks by label.
 2. **Scope at the ruleset.** For a set of related rules, put the pipeline filter in the ruleset's
    `entry_logic` (using the pipeline option's `value`, not its label) so every rule inherits it,
    rather than repeating it per rule.
@@ -72,7 +72,7 @@ CS deals, etc.).
 
 Always include `field_configurations` when creating/updating a rule — without it, linked boards
 show only record name and owner, no field columns. For each CRM field the rule's DSL references,
-add an entry with the field's exact `name` and `label` (from `list_provider_record_fields`), the
+add an entry with the field's exact `name` and `label` (from `provider_record_detail`), the
 same `provider` and `record_type` as the rule, and highlight visibility for zero-state. Reuse the
 field metadata you already fetched.
 
