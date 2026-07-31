@@ -22,8 +22,8 @@ prerequisite for those features.
 3. Once connected, confirm what's reachable:
    - `list_provider_record_types` — the CRM object types available (e.g. HubSpot contacts/deals,
      Salesforce Contact/Opportunity).
-   - `list_provider_record_fields` — field metadata you'll need when writing rule DSL and
-     configuring board columns.
+   - `provider_record_detail` — field metadata (and associations) you'll need when writing rule
+     DSL and configuring board columns.
 
 After the CRM is connected, hand off to **build-rules-and-boards**.
 
