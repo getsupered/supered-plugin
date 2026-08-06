@@ -5,7 +5,8 @@ description: >
   user is new to Supered, wants to "set up Supered", "onboard", "get started", connect the
   Supered MCP, or build out their first collections, content, guides, page triggers, process
   boards, rules, or action plans. This skill orchestrates the others (connect-supered-mcp,
-  connect-integrations, build-content-and-guides, build-rules-and-boards, build-action-plans).
+  connect-integrations, build-content-and-guides, build-rules-and-boards, build-run-queues,
+  build-action-plans).
 ---
 
 # Set up Supered
@@ -46,6 +47,7 @@ Ask what they want to accomplish first. Map their goal to the right build skill:
 | Knowledge content, cards, folders, in-app guides | **build-content-and-guides** |
 | Surface cards/guides inside HubSpot/Salesforce by URL | **build-content-and-guides** (page triggers) |
 | Flag/score CRM records; Kanban process tracking | **build-rules-and-boards** |
+| A personal, ordered worklist of flagged records to work through | **build-run-queues** |
 | Client/customer onboarding or task sequences | **build-action-plans** |
 | Connect HubSpot/Salesforce or other tools | **connect-integrations** |
 

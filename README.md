@@ -42,6 +42,7 @@ claude mcp add --transport http Supered https://app.supered.io/mcp
 | `supered:connect-integrations` | Connect the CRM (HubSpot/Salesforce) and other MCPs. |
 | `supered:build-content-and-guides` | Collections, cards, folders, guides, page triggers. |
 | `supered:build-rules-and-boards` | Sync-engine rules/rulesets and process boards (needs CRM). |
+| `supered:build-run-queues` | Personal, ordered worklists of flagged records from one/many boards or a composite. |
 | `supered:build-action-plans` | Phases, sections, tasks, roles, assignments, templates. |
 
 Start with: `/supered:setup-supered`
@@ -60,6 +61,7 @@ supered-plugin/
 │   ├── connect-integrations/SKILL.md
 │   ├── build-content-and-guides/SKILL.md
 │   ├── build-rules-and-boards/SKILL.md
+│   ├── build-run-queues/SKILL.md
 │   └── build-action-plans/SKILL.md
 └── README.md
 ```
