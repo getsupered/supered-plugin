@@ -19,6 +19,11 @@ description: >
 - **Rule** (`sync_engine_rule_create` / `_update`) — a DSL condition that flags, scores, or
   categorizes CRM records. Has a `type` (`record_error`, `record_warning`, `record_success`,
   `record_info`) and `field_configurations` that drive board columns.
+- **Resolution prompt** — rules of an *actionable* type (`record_error`, `record_warning`,
+  `custom`) get an auto-generated AI "resolution prompt" that powers the in-app **Fix with
+  Claude / Breeze** action on a flagged record. Supered writes it from the rule logic and
+  regenerates it when the logic changes. `resolution_prompt` is an optional override field on
+  `sync_engine_rule_create` / `_update` — see Guardrails; normally you leave it off.
 - **Ruleset** (`sync_engine_ruleset_create` / `_update`, `_add_rules`, `_remove_rules`) — a named
   group of rules with optional **entry**/**exit** logic (DSL) that scopes which records apply.
 - **Process board** (`process_board_create` / `_update`) — a Kanban view of CRM records matching
@@ -99,3 +104,7 @@ DSL text, or field labels.
 - Never create unscoped deal/ticket rules without confirming the pipeline.
 - Confirm each rule's intent before creating; propose the outline first for anything non-trivial.
 - Prefer `*_update` and enable/disable (`disabled_at`) over deleting and recreating.
+- **Leave `resolution_prompt` auto-generated.** Omit it on create/update — Supered writes it from
+  the rule logic. Only pass a value when the user *explicitly* asks to customize the fix
+  instructions; doing so marks the rule "manually customized," after which automatic updates make
+  only minimal edits to keep it correct.
