@@ -18,12 +18,13 @@ description: >
 
 - **Rule** (`sync_engine_rule_create` / `_update`) — a DSL condition that flags, scores, or
   categorizes CRM records. Has a `type` (`record_error`, `record_warning`, `record_success`,
-  `record_info`) and `field_configurations` that drive board columns.
+  `record_info`, or `ai` — see **AI rules**) and `field_configurations` that drive board columns.
 - **Resolution prompt** — rules of an *actionable* type (`record_error`, `record_warning`,
   `custom`) get an auto-generated AI "resolution prompt" that powers the in-app **Fix with
   Claude / Breeze** action on a flagged record. Supered writes it from the rule logic and
   regenerates it when the logic changes. `resolution_prompt` is an optional override field on
-  `sync_engine_rule_create` / `_update` — see Guardrails; normally you leave it off.
+  `sync_engine_rule_create` / `_update` — see Guardrails; normally you leave it off. (**AI rules**
+  are the exception — their prompt is authored by hand and never auto-generated; see below.)
 - **Ruleset** (`sync_engine_ruleset_create` / `_update`, `_add_rules`, `_remove_rules`) — a named
   group of rules with optional **entry**/**exit** logic (DSL) that scopes which records apply.
 - **Process board** (`process_board_create` / `_update`) — a Kanban view of CRM records matching
@@ -31,6 +32,28 @@ description: >
 - **Composite process board** (`composite_process_board_*`) — groups several boards into one view.
 - **Conditions** (`process_board_condition_create` / `_delete`) — link a board to rules/rulesets/tags.
 - **Streaks / analytics** — see the **analyze-boards** skill.
+
+## AI rules (`type: "ai"`)
+
+A fundamentally different type: an `ai` rule **deploys AI** against records in a desired state
+rather than flagging them. It is **evaluate-only** — when a record matches, Supered surfaces an
+**"Solve with AI"** button in the browser extension seeded with the rule's prompt; it never
+persists a flag, and is **exempt from process boards, streaks, counts, and analytics** (it can sit
+under a ruleset for organization, but stays hidden from any board that ruleset is on). So it has no
+"records" to review and won't show up on a board you build.
+
+When creating one:
+
+- **Confirm intent first.** This deploys an AI action against every matching record — treat it as
+  more consequential than a flag rule and get explicit confirmation.
+- **The `resolution_prompt` IS the rule.** Author it **by hand** on create — it's the instructions
+  the downstream AI runs with. It is **never auto-generated** for `ai`, so omitting it ships a dead
+  button. (This inverts the normal "leave it auto-generated" guidance.)
+- **Requires an AI resolution target.** The rule only surfaces when the team has a valid resolution
+  target for the rule's provider (Salesforce → Agentforce/Claude, HubSpot → Breeze/Claude),
+  configured in **Settings → AI**. Without it the rule is created but never appears. If you can't
+  confirm one is set, tell the user it's a prerequisite.
+- **Skip `field_configurations`** — they drive board columns, which AI rules never have.
 
 ## Before writing any rule
 
@@ -104,7 +127,8 @@ DSL text, or field labels.
 - Never create unscoped deal/ticket rules without confirming the pipeline.
 - Confirm each rule's intent before creating; propose the outline first for anything non-trivial.
 - Prefer `*_update` and enable/disable (`disabled_at`) over deleting and recreating.
-- **Leave `resolution_prompt` auto-generated.** Omit it on create/update — Supered writes it from
-  the rule logic. Only pass a value when the user *explicitly* asks to customize the fix
-  instructions; doing so marks the rule "manually customized," after which automatic updates make
-  only minimal edits to keep it correct.
+- **Leave `resolution_prompt` auto-generated** for `record_*` / `custom` rules. Omit it on
+  create/update — Supered writes it from the rule logic. Only pass a value when the user
+  *explicitly* asks to customize the fix instructions; doing so marks the rule "manually
+  customized," after which automatic updates make only minimal edits to keep it correct. **AI rules
+  are the opposite** — always author their `resolution_prompt` by hand; it is never auto-generated.
