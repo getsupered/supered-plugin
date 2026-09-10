@@ -6,7 +6,7 @@ description: >
   Supered MCP, or build out their first collections, content, guides, page triggers, process
   boards, rules, or action plans. This skill orchestrates the others (connect-supered-mcp,
   connect-integrations, build-content-and-guides, build-rules-and-boards, build-run-queues,
-  build-action-plans).
+  build-action-plans, manage-announcements).
 ---
 
 # Set up Supered
@@ -49,6 +49,7 @@ Ask what they want to accomplish first. Map their goal to the right build skill:
 | Flag/score CRM records; Kanban process tracking | **build-rules-and-boards** |
 | A personal, ordered worklist of flagged records to work through | **build-run-queues** |
 | Client/customer onboarding or task sequences | **build-action-plans** |
+| Broadcast an update/announcement to the team | **manage-announcements** |
 | Connect HubSpot/Salesforce or other tools | **connect-integrations** |
 
 For a true from-scratch onboarding, a good default first-run order is: connect CRM → one
