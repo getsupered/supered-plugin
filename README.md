@@ -44,6 +44,7 @@ claude mcp add --transport http Supered https://app.supered.io/mcp
 | `supered:build-rules-and-boards` | Sync-engine rules/rulesets and process boards (needs CRM). |
 | `supered:build-run-queues` | Personal, ordered worklists of flagged records from one/many boards or a composite. |
 | `supered:build-action-plans` | Phases, sections, tasks, roles, assignments, templates. |
+| `supered:manage-announcements` | Create, schedule, edit, and stop team announcements (Updates). |
 
 Start with: `/supered:setup-supered`
 
@@ -62,7 +63,8 @@ supered-plugin/
 │   ├── build-content-and-guides/SKILL.md
 │   ├── build-rules-and-boards/SKILL.md
 │   ├── build-run-queues/SKILL.md
-│   └── build-action-plans/SKILL.md
+│   ├── build-action-plans/SKILL.md
+│   └── manage-announcements/SKILL.md
 └── README.md
 ```
 
