@@ -1,7 +1,7 @@
 {
   "name": "supered",
-  "description": "Set up and manage a Supered environment with Claude. Connects the Supered MCP, then guides creating collections, content, guides, page triggers, process boards, sync-engine rules/rulesets, and action plans — following Supered best practices.",
-  "version": "0.3.3",
+  "description": "Set up and manage a Supered environment with Claude. Connects the Supered MCP, then guides creating collections, content, guides, page triggers, process boards, sync-engine rules/rulesets, action plans, and the Prompt Library — following Supered best practices.",
+  "version": "0.3.4",
   "author": {
     "name": "Supered",
     "url": "https://supered.io"
@@ -9,5 +9,5 @@
   "homepage": "https://supered.io",
   "repository": "https://github.com/getsupered/supered-plugin",
   "license": "MIT",
-  "keywords": ["supered", "onboarding", "mcp", "crm", "hubspot", "salesforce", "process-boards", "action-plans"]
+  "keywords": ["supered", "onboarding", "mcp", "crm", "hubspot", "salesforce", "pipedrive", "process-boards", "action-plans", "prompt-library"]
 }
