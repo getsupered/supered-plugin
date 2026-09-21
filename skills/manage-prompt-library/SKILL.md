@@ -76,7 +76,7 @@ the body under the limit or offer a shortened Pipedrive-specific variant.
   writing.
 - Requires the `prompts_manage` permission ("Manage Prompts" on the team's roles page); if the write
   tools aren't available, say so rather than retrying. Library folders need it too; `contents_manage`
-  alone no longer covers prompts.
+  alone does not reach into the library.
 - Prefer `prompt_update` over delete-and-recreate; the prompt's id, folder, and usage analytics
   stay intact.
 - Never hand-construct a prompt URL — read `app_url` / `path` from the response.
