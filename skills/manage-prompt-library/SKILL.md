@@ -74,8 +74,9 @@ the body under the limit or offer a shortened Pipedrive-specific variant.
 
 - Prompts are visible to the whole team as soon as they are created — confirm the body before
   writing.
-- Requires the `contents_manage` permission; if the write tools aren't available, say so rather
-  than retrying.
+- Requires the `prompts_manage` permission ("Manage Prompts" on the team's roles page); if the write
+  tools aren't available, say so rather than retrying. Library folders need it too; `contents_manage`
+  alone no longer covers prompts.
 - Prefer `prompt_update` over delete-and-recreate; the prompt's id, folder, and usage analytics
   stay intact.
 - Never hand-construct a prompt URL — read `app_url` / `path` from the response.

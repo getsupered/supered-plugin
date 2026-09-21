@@ -18,7 +18,7 @@ it and act on it instead of asking them to paste it.
    set to `claude` so prompts restricted to other assistants are left out. If several match,
    list titles and descriptions and ask which one. If none match, say so and offer to draft the
    task from scratch, or to add a prompt with the **manage-prompt-library** skill if the user
-   can manage content.
+   can manage prompts.
 2. **Read it.** Call `prompt` with the id to get the full `body`. The list endpoint is enough
    to choose; the body is what you run.
 3. **Gather the inputs it expects.** Prompt bodies are written for a rep who has the record or
