@@ -9,7 +9,7 @@ a set of skills for onboarding and building out a Supered workspace.
 - **Connects the Supered MCP** (`https://app.supered.io/mcp`, OAuth2) so Claude can read and
   write your Supered environment. Tools are feature-flagged per team.
 - **Guides environment setup** — collections, content, guides, page triggers, process boards,
-  sync-engine rules/rulesets, and action plans — with Supered best practices baked in.
+  sync-engine rules/rulesets, action plans, and the Prompt Library — with Supered best practices baked in.
 
 ## Install
 
@@ -45,6 +45,8 @@ claude mcp add --transport http Supered https://app.supered.io/mcp
 | `supered:build-run-queues` | Personal, ordered worklists of flagged records from one/many boards or a composite. |
 | `supered:build-action-plans` | Phases, sections, tasks, roles, assignments, templates. |
 | `supered:manage-announcements` | Create, schedule, edit, and stop team announcements (Updates). |
+| `supered:manage-prompt-library` | Write, organize, and restrict reusable AI prompts for the team's Prompt Library. |
+| `supered:use-prompt-library` | Find a library prompt by name and run it in the current conversation. |
 
 Start with: `/supered:setup-supered`
 
@@ -64,7 +66,9 @@ supered-plugin/
 │   ├── build-rules-and-boards/SKILL.md
 │   ├── build-run-queues/SKILL.md
 │   ├── build-action-plans/SKILL.md
-│   └── manage-announcements/SKILL.md
+│   ├── manage-announcements/SKILL.md
+│   ├── manage-prompt-library/SKILL.md
+│   └── use-prompt-library/SKILL.md
 └── README.md
 ```
 

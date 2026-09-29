@@ -11,7 +11,7 @@
     {
       "name": "supered",
       "source": "./",
-      "description": "Set up and manage a Supered environment with Claude. Connects the Supered MCP and guides you through collections, content, guides, page triggers, process boards, sync-engine rules, and action plans."
+      "description": "Set up and manage a Supered environment with Claude. Connects the Supered MCP and guides you through collections, content, guides, page triggers, process boards, sync-engine rules, action plans, and the Prompt Library."
     }
   ]
 }
