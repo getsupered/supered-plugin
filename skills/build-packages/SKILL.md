@@ -1,11 +1,12 @@
 ---
 name: build-packages
 description: >
-  Build Supered packages from bases and HubSpot resources: add a base's cards and guides, search a
-  source HubSpot portal for workflows, properties, pipelines, lists, forms, reports, and more, add
-  them with their dependencies, and publish the package for client accounts to install. Use when
-  the user wants to "package up these workflows", "put this base in a package", "build a package
-  from my portal", "copy this setup to clients", or asks what a package still depends on.
+  Build Supered packages from bases, action plans, and HubSpot resources: add a base's cards and
+  guides or an action plan template, search a source HubSpot portal for workflows, properties,
+  pipelines, lists, forms, reports, and more, add them with their dependencies, and publish the
+  package for client accounts to install. Use when the user wants to "package up these workflows",
+  "put this base in a package", "build a package from my portal", "copy this setup to clients", or
+  asks what a package still depends on.
 ---
 
 # Build packages
@@ -45,6 +46,16 @@ Bases (Collections) don't need the browser relay.
    - `include_action_plan_templates`: rarely wanted; copied templates can't be moved back.
 
 Adding a base that is already in the draft updates its options, so pass the options you want kept.
+
+## Adding action plans
+
+Action plans don't need the browser relay either.
+
+1. Find the template with `action_plans`. Only templates can be added; if the user means a plan that
+   isn't one, offer `action_plan_convert_to_template` first.
+2. `package_action_plan_add` with the `package_id` and `action_plan_id`.
+3. Tell the user what installers get: they can assign the plan to their own users, progress is tracked
+   from this (the partner) account, and no template is created in the installer's account.
 
 ## Connecting the relay
 
