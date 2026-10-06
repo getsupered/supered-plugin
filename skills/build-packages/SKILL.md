@@ -1,11 +1,11 @@
 ---
 name: build-packages
 description: >
-  Build Supered packages from HubSpot resources: search a source HubSpot portal for workflows,
-  properties, pipelines, lists, forms, reports, and more, add them to a package with their
-  dependencies, and publish it for client accounts to install. Use when the user wants to
-  "package up these workflows", "build a package from my portal", "copy this setup to clients",
-  "add a property to the package", or asks what a package still depends on.
+  Build Supered packages from bases and HubSpot resources: add a base's cards and guides, search a
+  source HubSpot portal for workflows, properties, pipelines, lists, forms, reports, and more, add
+  them with their dependencies, and publish the package for client accounts to install. Use when
+  the user wants to "package up these workflows", "put this base in a package", "build a package
+  from my portal", "copy this setup to clients", or asks what a package still depends on.
 ---
 
 # Build packages
@@ -30,7 +30,25 @@ description: >
   returns its `dependencies` as refs, flagged `standard_resource` (built into every portal) and
   `in_package`.
 
+## Adding bases
+
+Bases (Collections) don't need the browser relay.
+
+1. Find the base with `collections`.
+2. `package_collection_add` with the `package_id` and `collection_id`. The base's cards, folders,
+   guides, and page triggers are included when the package is installed.
+3. Leave the options at their defaults unless the user asks otherwise:
+   - `install_into`: `installed_base` puts the content in the base the installer picks;
+     `source_base` puts it in a base named after the source.
+   - `mirror`: keeps installed copies in sync with later edits. It takes effect on reinstall, and
+     turning it off later disables mirroring for every version, so confirm before enabling.
+   - `include_action_plan_templates`: rarely wanted; copied templates can't be moved back.
+
+Adding a base that is already in the draft updates its options, so pass the options you want kept.
+
 ## Connecting the relay
+
+Only HubSpot resources need this.
 
 Call `package_builder_relay` first.
 
@@ -40,7 +58,7 @@ Call `package_builder_relay` first.
 - When connected, `portals` lists the HubSpot portals open in their browser. Ask which one is the
   source when there's more than one. If the one they want is missing, ask them to open it.
 
-## Workflow
+## Adding HubSpot resources
 
 1. **Pick the package.** List with `packages`, or create one with `package_create` (name plus a
    short description of what it sets up). Confirm with the user before creating.
