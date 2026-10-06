@@ -6,7 +6,7 @@ description: >
   Supered MCP, or build out their first collections, content, guides, page triggers, process
   boards, rules, or action plans. This skill orchestrates the others (connect-supered-mcp,
   connect-integrations, build-content-and-guides, build-rules-and-boards, build-run-queues,
-  build-action-plans, manage-announcements, manage-prompt-library, use-prompt-library).
+  build-action-plans, manage-announcements, manage-prompt-library, use-prompt-library, build-packages).
 ---
 
 # Set up Supered
@@ -52,6 +52,7 @@ Ask what they want to accomplish first. Map their goal to the right build skill:
 | Broadcast an update/announcement to the team | **manage-announcements** |
 | Write or organize reusable AI prompts for reps (Claude, Breeze, Agentforce, Pipedrive AI) | **manage-prompt-library** |
 | Run one of the team's existing prompts here, in this conversation | **use-prompt-library** |
+| Package HubSpot workflows, properties, pipelines, etc. for client accounts | **build-packages** |
 | Connect HubSpot/Salesforce or other tools | **connect-integrations** |
 
 For a true from-scratch onboarding, a good default first-run order is: connect CRM → one
