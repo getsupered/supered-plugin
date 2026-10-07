@@ -1,12 +1,13 @@
 ---
 name: build-packages
 description: >
-  Build Supered packages from bases, action plans, process rules, and HubSpot resources: add a base's
-  cards and guides, an action plan template, or tagged rules, search a source HubSpot portal for workflows, properties,
-  pipelines, lists, forms, reports, and more, add them with their dependencies, and publish the
-  package for client accounts to install. Use when the user wants to "package up these workflows",
-  "put this base in a package", "build a package from my portal", "copy this setup to clients", or
-  asks what a package still depends on.
+  Build Supered packages from bases, action plans, process rules, announcements, and HubSpot
+  resources: add a base's cards and guides, an action plan template, or tagged rules and
+  announcements, search a source HubSpot portal for workflows, properties, pipelines, lists, forms,
+  reports, and more, add them with their dependencies, and publish the package for client accounts
+  to install. Use when the user wants to "package up these workflows", "put this base in a
+  package", "build a package from my portal", "copy this setup to clients", or asks what a package
+  still depends on.
 ---
 
 # Build packages
@@ -70,6 +71,19 @@ Process rules are packaged by tag, and don't need the browser relay.
    - CRM fields the rules use are **not** created by the install. They must already exist in the
      installer's CRM, or be added to the package as HubSpot resources.
 4. `include_tags` keeps the rules' tags on the installed copies. Leave it off unless asked.
+
+## Adding announcements
+
+Announcements (Updates) are packaged by tag too, with no browser relay.
+
+1. List the announcements carrying the tag with `announcements` (filter by `tags`) and confirm the
+   list with the user. If they aren't tagged yet, tag them first.
+2. `package_announcement_tag_add` with the `package_id` and the `tag` name. Every announcement
+   carrying the tag is included, and they are looked up again at install.
+3. Tell the user what installers get:
+   - cards, folders, and assets connected to the announcements are included automatically;
+   - installed announcements arrive **Staged**, with no launch date and the audience set to everyone.
+     The installer has to set the launch date and audience afterwards.
 
 ## Connecting the relay
 
