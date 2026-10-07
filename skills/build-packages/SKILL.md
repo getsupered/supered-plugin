@@ -1,8 +1,8 @@
 ---
 name: build-packages
 description: >
-  Build Supered packages from bases, action plans, and HubSpot resources: add a base's cards and
-  guides or an action plan template, search a source HubSpot portal for workflows, properties,
+  Build Supered packages from bases, action plans, process rules, and HubSpot resources: add a base's
+  cards and guides, an action plan template, or tagged rules, search a source HubSpot portal for workflows, properties,
   pipelines, lists, forms, reports, and more, add them with their dependencies, and publish the
   package for client accounts to install. Use when the user wants to "package up these workflows",
   "put this base in a package", "build a package from my portal", "copy this setup to clients", or
@@ -56,6 +56,20 @@ Action plans don't need the browser relay either.
 2. `package_action_plan_add` with the `package_id` and `action_plan_id`.
 3. Tell the user what installers get: they can assign the plan to their own users, progress is tracked
    from this (the partner) account, and no template is created in the installer's account.
+
+## Adding process rules
+
+Process rules are packaged by tag, and don't need the browser relay.
+
+1. List the rules carrying the tag with `sync_engine_rules` (filter by `tags`) and confirm the list
+   with the user. If the rules aren't tagged yet, tag them first.
+2. `package_rule_tag_add` with the `package_id` and the `tag` name. Every rule carrying the tag is
+   included, and the rules are looked up again at install, so rules tagged later come along too.
+3. Tell the user what else happens:
+   - cards, folders, and page triggers connected to those rules are included automatically;
+   - CRM fields the rules use are **not** created by the install. They must already exist in the
+     installer's CRM, or be added to the package as HubSpot resources.
+4. `include_tags` keeps the rules' tags on the installed copies. Leave it off unless asked.
 
 ## Connecting the relay
 
