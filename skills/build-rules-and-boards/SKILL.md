@@ -4,7 +4,8 @@ description: >
   Create and audit Supered sync-engine rules and rulesets, and the process boards / composite
   boards that track CRM records against them. Use when the user wants to "flag records", "score
   deals", "find records missing X", "build a process board", "set up a ruleset", audit existing
-  rules, or track CRM data quality. Requires a connected CRM (see connect-integrations).
+  rules, track CRM data quality, or "sync a board" / check whether a board sync is done. Requires a
+  connected CRM (see connect-integrations).
 ---
 
 # Build rules & boards
@@ -31,6 +32,8 @@ description: >
   linked rules/rulesets. Provider and record type are fixed at creation.
 - **Composite process board** (`composite_process_board_*`) — groups several boards into one view.
 - **Conditions** (`process_board_condition_create` / `_delete`) — link a board to rules/rulesets/tags.
+- **Board sync** (`process_board_sync_create` / `process_board_syncs`) — re-evaluates a board's
+  CRM records against its current rules. See **Syncing boards after changes**.
 - **Streaks / analytics** — see the **analyze-boards** skill.
 
 ## AI rules (`type: "ai"`)
@@ -113,6 +116,58 @@ not generic decoration. Examples: `🏢 Company Hygiene`, `🧹 Core Data Comple
 start only; skip it if nothing fits (better plain than forced); never add emojis to descriptions,
 DSL text, or field labels.
 
+## Syncing boards after changes
+
+CRM records are evaluated against a rule when they change in the CRM, or when a board syncs.
+`process_board_create` starts a sync on its own. After these changes, affected boards are
+incomplete until a sync runs, because records that haven't changed since were never evaluated
+against the new logic:
+
+- creating or editing rules, or changing a ruleset's rules or entry/exit logic
+- linking rules, rulesets, or tags to an existing board (`process_board_condition_create`). This
+  only copies in records already known to trigger them.
+
+**When to offer.** When a task that made one of these changes is done, offer to sync the affected
+boards. Affected boards are the ones you created or linked, plus any board whose
+`process_board_conditions` reference a rule or ruleset you changed (check `process_boards`). Name
+the boards in the offer, e.g. "Want me to sync 🩺 Pipeline Health and 🏢 Company Hygiene so their
+records reflect the new rules?" Skip the offer when the only change was `process_board_create`
+with its conditions passed inline, since that board is already syncing.
+
+**Ask first.** A sync pulls every record on the board from the CRM and can take minutes on large
+boards. Don't start one without a yes. If your mutations go through an approval prompt (the
+in-app assistant), proposing the `process_board_sync_create` call is the ask; don't ask in text
+first as well.
+
+**Starting it.** Call `process_board_sync_create` once for all affected boards:
+
+- Boards that make up one composite: pass `composite_process_board_id`. This syncs every member
+  board using the composite's owner settings.
+- Otherwise: pass `process_board_ids`.
+
+The user must have access to every board in the call, including each member of a composite. If one
+is inaccessible the call fails and nothing starts; tell the user which board, and offer to sync the
+rest with `process_board_ids`.
+
+A board has at most one active sync. A sync that is still `ENQUEUED` for the same request (same
+composite, or no composite) is returned as-is. Any other active sync is cancelled and restarted, so
+it picks up the latest rules and the right owner settings. Don't call it again for a board that is
+already syncing unless rules changed since.
+
+**Showing progress.** If you have a `process_board_sync_watch` action (the in-app Supered
+Assistant), call it with every returned sync `id` right after each `process_board_sync_create`. It
+shows a live progress card under your reply, so don't poll `process_board_syncs` to report
+progress.
+
+**Reporting status.** Keep the returned sync `id`s. When the user asks how it's going, or before
+you report results that depend on the new rules, call `process_board_syncs` with those `ids`.
+Report per board: status, `percent_complete`, and once finished, `target_record_count` evaluated
+and `result_record_count` flagged. `COMPLETED` means the board is current. On `FAILED`, offer to
+start it again. On `CANCELLED`, first check whether a newer sync replaced it (`process_board_syncs`
+with `process_board_ids`, newest first). If not, check the CRM connection (`whoami`): a sync is
+also cancelled when the board's provider isn't connected. Don't poll in a loop; check when asked or
+at a natural point in the conversation.
+
 ## Workflow
 
 1. Verify CRM + load DSL spec + fetch fields (above).
@@ -120,7 +175,8 @@ DSL text, or field labels.
 3. Create/choose a ruleset; set `entry_logic` for pipeline scope.
 4. Create rules with real field names + `field_configurations`.
 5. Create the board and link it via `process_board_condition_create`.
-6. Show the board and confirm records populate as expected.
+6. Offer to sync the affected boards (see **Syncing boards after changes**), then report the sync
+   status and confirm records populate as expected.
 
 ## Guardrails
 

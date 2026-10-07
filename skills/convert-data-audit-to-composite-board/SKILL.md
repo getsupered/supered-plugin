@@ -95,6 +95,10 @@ first in small batches and organizing them after is more resilient to partial fa
    via a process board condition.
 6. Create the composite process board grouping all the object-type boards, tag it `Data Audit`.
 7. Confirm completion with the same totals line, worded as "created and tagged."
+8. Boards linked to rulesets after creation are incomplete until they sync. Offer to
+   sync the new composite with `process_board_sync_create` (`composite_process_board_id`), and
+   report its status with `process_board_syncs` when asked. See **build-rules-and-boards** →
+   *Syncing boards after changes*.
 
 ## Guardrails
 
