@@ -62,8 +62,11 @@ Action plans don't need the browser relay either.
 
 Process rules are packaged by tag, and don't need the browser relay.
 
-1. List the rules carrying the tag with `sync_engine_rules` (filter by `tags`) and confirm the list
-   with the user. If the rules aren't tagged yet, tag them first.
+1. Find the tag. `tags` (type `SYNC_ENGINE_RULE`) lists the rule tags in use with a count each, and
+   every rule shows its own tags in `taggings`. If the rules the user wants aren't tagged yet,
+   propose a tag name and apply it to each with `sync_engine_rule_tags_update`.
+   Then list the rules carrying the tag with `sync_engine_rules` (filter by `tags`) and confirm the
+   list with the user.
 2. `package_rule_tag_add` with the `package_id` and the `tag` name. Every rule carrying the tag is
    included, and the rules are looked up again at install, so rules tagged later come along too.
 3. Tell the user what else happens:
@@ -76,8 +79,11 @@ Process rules are packaged by tag, and don't need the browser relay.
 
 Announcements (Updates) are packaged by tag too, with no browser relay.
 
-1. List the announcements carrying the tag with `announcements` (filter by `tags`) and confirm the
-   list with the user. If they aren't tagged yet, tag them first.
+1. Find the tag. Announcement tags are separate from rule tags: `tags` (type `ANNOUNCEMENT`) lists
+   them, and every announcement shows its own in `taggings`. If the announcements the user wants
+   aren't tagged yet, propose a tag name and apply it with `announcement_tags_update`.
+   Then list the announcements carrying the tag with `announcements` (filter by `tags`) and confirm
+   the list with the user.
 2. `package_announcement_tag_add` with the `package_id` and the `tag` name. Every announcement
    carrying the tag is included, and they are looked up again at install.
 3. Tell the user what installers get:
