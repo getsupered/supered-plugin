@@ -35,6 +35,11 @@ description: >
 - **Board sync** (`process_board_sync_create` / `process_board_syncs`) — re-evaluates a board's
   CRM records against its current rules. See **Syncing boards after changes**.
 - **Streaks / analytics** — see the **analyze-boards** skill.
+<!-- mcp-only -->
+- **Rule check** (`sync_engine_rule_check`) — evaluates CRM records against rules without writing
+  anything, optionally with proposed field values. Use it before and after changing CRM records,
+  and to work out how to fix a flagged record. See the **check-crm-changes** skill.
+<!-- /mcp-only -->
 
 ## AI rules (`type: "ai"`)
 
