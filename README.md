@@ -44,6 +44,7 @@ claude mcp add --transport http Supered https://app.supered.io/mcp
 | `supered:build-rules-and-boards` | Sync-engine rules/rulesets and process boards (needs CRM). |
 | `supered:build-run-queues` | Personal, ordered worklists of flagged records from one/many boards or a composite. |
 | `supered:build-action-plans` | Phases, sections, tasks, roles, assignments, templates. |
+| `supered:check-crm-changes` | Check CRM records against process rules before and after changing them; fix flagged records. MCP only. |
 | `supered:manage-announcements` | Create, schedule, edit, and stop team announcements (Updates). |
 | `supered:manage-prompt-library` | Write, organize, and restrict reusable AI prompts for the team's Prompt Library. |
 | `supered:use-prompt-library` | Find a library prompt by name and run it in the current conversation. |
@@ -66,6 +67,7 @@ supered-plugin/
 │   ├── build-rules-and-boards/SKILL.md
 │   ├── build-run-queues/SKILL.md
 │   ├── build-action-plans/SKILL.md
+│   ├── check-crm-changes/SKILL.md
 │   ├── manage-announcements/SKILL.md
 │   ├── manage-prompt-library/SKILL.md
 │   └── use-prompt-library/SKILL.md
@@ -100,3 +102,30 @@ Because this repo is public (required for a marketplace), the Supered app can tr
 files as the canonical best-practice content: a GenServer fetches them from the public repo on
 init and every X minutes (with a last-known-good fallback), so the in-app Supered Assistant and
 external Claude share one set of instructions and never drift. Edit the guidance here once.
+
+### Content for MCP clients only
+
+Some guidance only applies to external MCP clients, because the in-app assistant doesn't have the
+tools it describes (for example, it can't write to the CRM). The app strips this content before
+giving the skills to the in-app assistant:
+
+- **A whole skill:** add `surfaces` under `metadata` in the frontmatter. Skills without it go to
+  every surface.
+
+  ```yaml
+  metadata:
+    surfaces: mcp   # or [mcp, in_app]
+  ```
+
+- **Part of a shared skill:** wrap it in markers. Always close the block; an unclosed marker drops
+  everything after it from the in-app copy.
+
+  ```markdown
+  <!-- mcp-only -->
+  Guidance only MCP clients should see.
+  <!-- /mcp-only -->
+  ```
+
+The app only understands these markers from plugin `v0.4.0` on, and pins to a minor version
+(`~> 0.4.0`). Release MCP-only content as a new minor version, never a patch to an older minor, so
+an app that predates the filter never picks it up.
