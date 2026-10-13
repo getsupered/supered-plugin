@@ -47,6 +47,7 @@ claude mcp add --transport http Supered https://app.supered.io/mcp
 | `supered:manage-announcements` | Create, schedule, edit, and stop team announcements (Updates). |
 | `supered:manage-prompt-library` | Write, organize, and restrict reusable AI prompts for the team's Prompt Library. |
 | `supered:build-packages` | Build packages from a HubSpot portal's resources and their dependencies, then publish. |
+| `supered:install-packages` | Preview and install a package into Supered and a HubSpot portal, with the user confirming the HubSpot step. |
 | `supered:use-prompt-library` | Find a library prompt by name and run it in the current conversation. |
 
 Start with: `/supered:setup-supered`
@@ -70,6 +71,7 @@ supered-plugin/
 │   ├── manage-announcements/SKILL.md
 │   ├── manage-prompt-library/SKILL.md
 │   ├── build-packages/SKILL.md
+│   ├── install-packages/SKILL.md
 │   └── use-prompt-library/SKILL.md
 └── README.md
 ```
