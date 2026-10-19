@@ -150,9 +150,10 @@ first as well.
   board using the composite's owner settings.
 - Otherwise: pass `process_board_ids`.
 
-The user must have access to every board in the call, including each member of a composite. If one
-is inaccessible the call fails and nothing starts; tell the user which board, and offer to sync the
-rest with `process_board_ids`.
+Access to a composite covers all of its member boards, even ones the user can't open on their own.
+With `process_board_ids`, the user needs access to each board. If one is inaccessible the call fails
+and nothing starts; tell the user which board, and offer to sync the rest. If the boards belong to a
+composite the user can access, pass `composite_process_board_id` instead.
 
 A board has at most one active sync. A sync that is still `ENQUEUED` for the same request (same
 composite, or no composite) is returned as-is. Any other active sync is cancelled and restarted, so

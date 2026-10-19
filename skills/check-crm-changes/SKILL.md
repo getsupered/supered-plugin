@@ -92,13 +92,14 @@ When the user wants to resolve the records on a board:
 1. **Confirm the scope.** A board link with both a composite id and a `board_id` means the user is
    looking at one member board of a composite. Ask whether they mean that board or the whole
    composite before you start.
-2. Call `process_board` for each board's `provider`, `record_type`, and `primary_field`
-   (`composite_process_board` lists a composite's member boards). Member boards can track
-   different record types.
+2. Get each board's `provider`, `record_type`, and `primary_field`: from `process_board` for a
+   single board, or from each entry's `process_board` on `composite_process_board` for a composite.
+   Use the composite entries even for one member board, because composite access covers boards the
+   user can't open with `process_board`. Member boards can track different record types.
 3. Call `process_board_records` for each record's `process_board_id`, `record_id`, and the rules
    it triggers. Pass `process_board_id` for one board, `composite_process_board_id` alone for every
-   member board, or both for one member board seen through the composite. Page through with a page
-   size of 100; use `rule_ids` to focus on one rule.
+   member board, or both for one member board seen through the composite (it must be a member). Page
+   through with a page size of 100; use `rule_ids` to focus on one rule.
 4. Supered returns only identifiers. To show the user which record is which, read each record's
    `primary_field` (and anything else you need) from the CRM, then refer to records by name.
 5. Fix them with the steps above, then sync the board. To confirm it's clear, call
