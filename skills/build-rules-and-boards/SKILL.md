@@ -35,6 +35,11 @@ description: >
 - **Board sync** (`process_board_sync_create` / `process_board_syncs`) — re-evaluates a board's
   CRM records against its current rules. See **Syncing boards after changes**.
 - **Streaks / analytics** — see the **analyze-boards** skill.
+<!-- mcp-only -->
+- **Rule check** (`sync_engine_rule_check`) — evaluates CRM records against rules without writing
+  anything, optionally with proposed field values. Use it before and after changing CRM records,
+  and to work out how to fix a flagged record. See the **check-crm-changes** skill.
+<!-- /mcp-only -->
 
 ## AI rules (`type: "ai"`)
 
@@ -118,10 +123,11 @@ DSL text, or field labels.
 
 ## Syncing boards after changes
 
-CRM records are evaluated against a rule when they change in the CRM, or when a board syncs.
-`process_board_create` starts a sync on its own. After these changes, affected boards are
-incomplete until a sync runs, because records that haven't changed since were never evaluated
-against the new logic:
+On its own, Supered re-checks the records already on a board about once an hour, and looks for
+other records to add only in a daily check of recently updated records. A board sync evaluates
+every record right away. `process_board_create` starts a sync on its own. After these changes,
+affected boards are missing records until a sync runs; a record that hasn't been updated recently
+won't be picked up any other way:
 
 - creating or editing rules, or changing a ruleset's rules or entry/exit logic
 - linking rules, rulesets, or tags to an existing board (`process_board_condition_create`). This
@@ -145,9 +151,10 @@ first as well.
   board using the composite's owner settings.
 - Otherwise: pass `process_board_ids`.
 
-The user must have access to every board in the call, including each member of a composite. If one
-is inaccessible the call fails and nothing starts; tell the user which board, and offer to sync the
-rest with `process_board_ids`.
+Access to a composite covers all of its member boards, even ones the user can't open on their own.
+With `process_board_ids`, the user needs access to each board. If one is inaccessible the call fails
+and nothing starts; tell the user which board, and offer to sync the rest. If the boards belong to a
+composite the user can access, pass `composite_process_board_id` instead.
 
 A board has at most one active sync. A sync that is still `ENQUEUED` for the same request (same
 composite, or no composite) is returned as-is. Any other active sync is cancelled and restarted, so
