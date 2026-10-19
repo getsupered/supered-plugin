@@ -21,6 +21,10 @@ tool (a HubSpot, Salesforce, or Pipedrive MCP, or an API).
 > `scope__process_board_ids`, while some hosts present them nested like
 > `scope: {process_board_ids: …}`). Map the guidance below to the shape your tool exposes.
 
+## Before you start
+
+Confirm the CRM is connected (`whoami`); if not, run **connect-integrations**.
+
 ## Inputs
 
 - `provider` and `record_type`: from `whoami` and `list_provider_record_types` (HubSpot uses ids
@@ -67,9 +71,10 @@ tool (a HubSpot, Salesforce, or Pipedrive MCP, or an API).
    behind a write (for example, HubSpot moving a lead's stage after an email is logged). Never
    report that something didn't change based on a read taken right after a write; wait briefly and
    read again first.
-6. **Offer a board sync.** Boards pick up CRM changes on their next poll. To show the result right
-   away, offer `process_board_sync_create` for the affected board. A sync re-reads every record on
-   the board, so for a few edits on a large board, say it can take a minute or two.
+6. **Offer a board sync.** Supered re-checks the records on a board about once an hour, so a fix
+   clears on its own. To show the result right away, offer a sync of the affected board, and say it
+   can take a minute or two on a large board. See **build-rules-and-boards** → *Syncing boards
+   after changes* for how to start one and check on it.
 
 ## Fixing a flagged record
 
@@ -102,7 +107,7 @@ When the user wants to resolve the records on a board:
    through with a page size of 100; use `rule_ids` to focus on one rule.
 4. Supered returns only identifiers. To show the user which record is which, read each record's
    `primary_field` (and anything else you need) from the CRM, then refer to records by name.
-5. Fix them with the steps above, then sync the board. To confirm it's clear, call
+5. Fix them with the steps above, then offer to sync the board. To confirm it's clear, call
    `process_board_records` or `process_board_analytics` again after the sync completes. Before
    finishing, mention any boards in the scope you haven't worked through.
 

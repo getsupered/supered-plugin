@@ -123,10 +123,11 @@ DSL text, or field labels.
 
 ## Syncing boards after changes
 
-CRM records are evaluated against a rule when they change in the CRM, or when a board syncs.
-`process_board_create` starts a sync on its own. After these changes, affected boards are
-incomplete until a sync runs, because records that haven't changed since were never evaluated
-against the new logic:
+On its own, Supered re-checks the records already on a board about once an hour, and looks for
+other records to add only in a daily check of recently updated records. A board sync evaluates
+every record right away. `process_board_create` starts a sync on its own. After these changes,
+affected boards are missing records until a sync runs; a record that hasn't been updated recently
+won't be picked up any other way:
 
 - creating or editing rules, or changing a ruleset's rules or entry/exit logic
 - linking rules, rulesets, or tags to an existing board (`process_board_condition_create`). This
