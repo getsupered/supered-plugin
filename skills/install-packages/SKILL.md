@@ -30,7 +30,10 @@ description: >
    - `unresolved_dependencies`: these must already exist in the target portal, or those resources
      will fail.
 3. **Install the Supered side.** If the plan says `needs_base`, ask which base (Collection) to
-   install into; find it with `collections`. Then `package_install`. Report `resource_counts`.
+   install into; find it with `collections`. A base in `supered_resources` whose `warnings` say it
+   has a set install location ignores that choice. When the user picks a base, warn them which
+   bases will go elsewhere and where, before installing. Then `package_install`. Report
+   `resource_counts`.
 4. **Request the HubSpot install.** For each entry in `hubspot_installs`:
    - call `package_hubspot_install`. Pass `portal_name` with whatever the user called the target
      portal ("Test 3"). Only pass `portal_id` if they gave you the numeric id. Never ask them to look

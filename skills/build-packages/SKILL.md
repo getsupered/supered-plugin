@@ -40,8 +40,10 @@ Bases (Collections) don't need the browser relay.
 2. `package_collection_add` with the `package_id` and `collection_id`. The base's cards, folders,
    guides, and page triggers are included when the package is installed.
 3. Leave the options at their defaults unless the user asks otherwise:
-   - `install_into`: `installed_base` puts the content in the base the installer picks;
-     `source_base` puts it in a base named after the source.
+   - `install_into`: `installed_base` (the default) puts the content in the base the installer
+     picks. `source_base` gives the base a **set location**: the content always goes into a base
+     named after the source, created if missing, and installers can't choose another. Only use it
+     when the user asks, and warn them about that first.
    - `mirror`: keeps installed copies in sync with later edits. It takes effect on reinstall, and
      turning it off later disables mirroring for every version, so confirm before enabling.
    - `include_action_plan_templates`: rarely wanted; copied templates can't be moved back.
