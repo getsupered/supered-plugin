@@ -19,7 +19,8 @@ description: >
 
 - **Rule** (`sync_engine_rule_create` / `_update`) — a DSL condition that flags, scores, or
   categorizes CRM records. Has a `type` (`record_error`, `record_warning`, `record_success`,
-  `record_info`, or `ai` — see **AI rules**) and `field_configurations` that drive board columns.
+  `record_info`, `dynamic`, or `ai`; see **Dynamic rules** and **AI rules**) and
+  `field_configurations` that drive board columns.
 - **Resolution prompt** — rules of an *actionable* type (`record_error`, `record_warning`,
   `custom`) get an auto-generated AI "resolution prompt" that powers the in-app **Fix with
   Claude / Breeze** action on a flagged record. Supered writes it from the rule logic and
@@ -40,6 +41,28 @@ description: >
   anything, optionally with proposed field values. Use it before and after changing CRM records,
   and to work out how to fix a flagged record. See the **check-crm-changes** skill.
 <!-- /mcp-only -->
+
+## Dynamic rules (`type: "dynamic"`)
+
+A dynamic rule flags records like any other rule, but each flagged record's status comes from the
+rule's `severity_stages` instead of a fixed type. Use one when the same problem should get more (or
+less) serious over time or with a field value, e.g. "info for the first week, then an error", or
+"warning under $50k, error above". Build that as one dynamic rule, not several overlapping
+fixed-type rules.
+
+- **Syntax lives in `dsl_specification`** → *Dynamic Rules*. Stages are checked top to bottom, the
+  first match wins, exactly one stage is the catch-all, and each status can be used by only one
+  stage.
+- **Set `process_board_violation_types` on purpose.** Only records in those statuses show on boards,
+  analytics, and streaks. For "info, then error", list just `record_error` so the board shows only
+  records that need action. A record in an unlisted status stays off the board until it escalates;
+  if the user expects to see it now, include that status. Tell the user which statuses the board
+  will show.
+- **Time-based stages move on re-evaluation.** `violation_age_days` counts from when the record
+  started violating and advances when Supered re-checks it (about hourly), so escalations aren't
+  instant.
+- **Editing stages re-syncs the rule's boards automatically.** No need to start a board sync
+  yourself after changing them.
 
 ## AI rules (`type: "ai"`)
 
