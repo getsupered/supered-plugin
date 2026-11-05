@@ -52,11 +52,14 @@ Confirm the CRM is connected (`whoami`); if not, run **connect-integrations**.
    - `no_longer_triggered_rules`: rules the change resolves. Mention them; they're the payoff. If a
      record's change resolves nothing, say so and ask before writing it, even if the user asked to
      change "each one".
+   - `status_changed_rules`: dynamic rules the record already triggers whose status the change
+     would move, with `previous_type` showing the current status. Treat a move to `record_error` or
+     `record_warning` like a newly triggered one: get the user's OK first.
    - `unknown_fields`: names that don't exist on the record type. Fix the typo and check again.
    - `read_only_fields`: fields the CRM calculates. Writing them will fail; see **Calculated
      fields**.
 3. **Confirm with the user.** Show each record's changes alongside the rules they start and stop
-   triggering, and get approval before writing.
+   triggering or change the status of, and get approval before writing.
    - A direct instruction that names the records and the values ("mark these 5 as Disqualified, Not
      a good fit") approves exactly that change.
    - Anything you fill in yourself is not approved until the user sees it: email or note subjects and
