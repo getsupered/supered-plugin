@@ -5,7 +5,8 @@ description: >
   counts, most-triggered rules, owners with the most flagged records, trends over time, and
   clean-streak / compliance rates. Use when the user asks "how many records are on this board",
   "which rules fire most", "who has the most flagged records", "how's our compliance trending",
-  or "what's my streak".
+  or "what's my streak". Also use when a user has no streak data or their home page shows no
+  boards to clear.
 ---
 
 # Analyze boards
@@ -49,6 +50,26 @@ compliance improved or regressed.
 **Date filters:** all four streak tools accept `filters` with optional `start_date` / `end_date`
 (ISO 8601). With no dates, the server defaults to the last 30 days — state the window you used
 when you report a rate.
+
+## When a user has no streak data
+
+`my_board_streaks` returns nothing when no streak rows exist for the user. Rows are written
+hourly, per process board, for each user linked to a CRM owner. Check every cause before
+replying so the user can fix everything in one go:
+
+1. **No CRM connected** (`whoami` team connections). Fix: an admin connects the CRM in
+   Settings > Connections.
+2. **No process boards** (`process_boards`, `composite_process_boards`). Fix: create one now,
+   unless cause 1 applies.
+3. **Boards exist but the user has no rows.** The user isn't linked to a CRM owner, or a
+   manual-only board doesn't list them. You can't see either, so name both. Fix: an admin links
+   them to their CRM owner in the CRM's page under Settings > Connections, or adds them to the
+   board.
+4. **A board is under an hour old.** Fix: none, it fills in at the next hourly run.
+
+Do every fix you can yourself in the same turn. Then reply with only the steps left for the
+user, as a short numbered checklist with links, one line each. If nothing is left, say when the
+data will appear. No preamble, no explanation of how streaks work, no causes that don't apply.
 
 ## Guardrails
 
