@@ -12,12 +12,9 @@ description: >
 ## Concepts
 
 - **DataAudit** — a report of `results`, each with a `data_audit_point_definition` (the audit
-  check: `label`, `object_display_name`, `tags`) and a score. This is the *only* source of
-  object types, function tags, and rule names — never invent, rename, or reformat any of these
-  values.
-- **Function tags** (`data_audit_point_definition.tags`) — categories like `Data Hygiene`,
-  `Sales`. Used to filter which audit points become rules. These are audit categories, not
-  Supered tags; never apply them to rules.
+  check: `label`, `object_display_name`) and a score. This is the *only* source of object types
+  and rule names — never invent, rename, or reformat any of these values. Ignore
+  `data_audit_point_definition.tags`; they are deprecated and empty on current audits.
 - **Object type** (`data_audit_point_definition.object_display_name`) — e.g. `Contacts`,
   `Companies`. One board + one ruleset per object type included.
 - **Rule name** (`data_audit_point_definition.label`) — becomes the rule's name, exactly as
@@ -69,19 +66,14 @@ tagged `Data Audit` don't count as matches; leave them alone.
 
 1. If any object type in the audit isn't supported by process rules/boards, state that in one
    line (which types are excluded and why) — don't elaborate further.
-2. Ask which function tags AND which object types to include in a single message, using
-   distinct prefixes per list so answers are never ambiguous, for example:
-   - `F1. Data Hygiene`
-   - `F2. Sales`
-   - `F3. All`
-   - `O1. Contacts`
-   - `O2. Companies`
-   - `O3. Deals`
-   - `O4. Tickets`
-   - `O5. All`
-   Tell the user to answer using the prefix+number (e.g. "F3, O5" or "F1, O2"), or full names,
-   or "all" for either list. Never present two lists that both start numbering at 1 without a
-   distinguishing prefix. Only list object types that are actually supported.
+2. Ask which object types to include as a numbered list, for example:
+   1. `Contacts`
+   2. `Companies`
+   3. `Deals`
+   4. `Tickets`
+   5. `All`
+   Tell the user to answer with the numbers (e.g. "1, 3"), the names, or "all". Only list object
+   types that are actually supported.
 3. If everything in the selected scope already exists, say so in one line, offer to sync the
    composite, and stop.
 4. Otherwise show the plan as a bulleted list, every rule on its own bullet line — never
@@ -140,8 +132,8 @@ every step for objects that already exist.
 - Never tag rules or rulesets you didn't create in this run, and never remove `Data Audit` from
   anything.
 - Do not ask about specific pipelines for deals or tickets.
-- Only use properties present in the data audit's own results — never invent object types,
-  tags, or rule names not present in the retrieved audit data.
+- Only use properties present in the data audit's own results — never invent object types or
+  rule names not present in the retrieved audit data.
 - Only one approval gate: the plan + totals in step 4 of "Before creating anything." Proceed
   through all creation without pausing, and without asking again — batching is an internal
   execution detail, not a new approval point.
