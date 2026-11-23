@@ -14,10 +14,11 @@ description: >
 Supered's process boards and sync-engine rules operate on CRM records, so a CRM connection is a
 prerequisite for those features.
 
-1. Check current status: call `whoami` and read `team.hubspot_connection` and
-   `team.salesforce_connection`. A non-null value with an `id` means it's connected.
+1. Check current status: call `whoami` and read `team.hubspot_connection`,
+   `team.salesforce_connection`, and `team.pipedrive_connection`. A non-null value with an `id`
+   means it's connected.
 2. **The CRM OAuth connection is made in the Supered UI, not over the API.** If it's missing,
-   direct the user to connect it in Supered (Settings → integrations), then re-run `whoami` to
+   direct the user to connect it in Supered (Settings → Connections), then re-run `whoami` to
    confirm. Do not attempt to create or modify the connection yourself.
 3. Once connected, confirm what's reachable:
    - `list_provider_record_types` — the CRM object types available (e.g. HubSpot contacts/deals,

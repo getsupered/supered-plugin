@@ -122,8 +122,8 @@ CS deals, etc.).
 1. **Ask first.** Before constructing anything, ask which pipeline(s) to scope to. Surface the
    `pipeline` enum values from `provider_record_detail` so the user picks by label.
 2. **Scope at the ruleset.** For a set of related rules, put the pipeline filter in the ruleset's
-   `entry_logic` (using the pipeline option's `value`, not its label) so every rule inherits it,
-   rather than repeating it per rule.
+   entry logic (`entry_logic_dsl_text`, using the pipeline option's `value`, not its label) so
+   every rule inherits it, rather than repeating it per rule.
 3. **Explicit opt-out only.** Only ship account-wide deal/ticket rules if the user says so
    outright. The silent default (unbounded) is the wrong default.
 
@@ -202,7 +202,7 @@ at a natural point in the conversation.
 
 1. Verify CRM + load DSL spec + fetch fields (above).
 2. Audit existing rules/rulesets; propose only the gaps and confirm.
-3. Create/choose a ruleset; set `entry_logic` for pipeline scope.
+3. Create/choose a ruleset; set `entry_logic_dsl_text` for pipeline scope.
 4. Create rules with real field names + `field_configurations`.
 5. Create the board and link it via `process_board_condition_create`.
 6. Offer to sync the affected boards (see **Syncing boards after changes**), then report the sync

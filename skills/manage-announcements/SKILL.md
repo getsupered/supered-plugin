@@ -64,8 +64,8 @@ scanning the full list.
 - Creating and editing announcements is a **broadcast to real users** — always confirm content
   and audience before sending, and prefer a future `assignment_begins_at` if the user is still
   reviewing.
-- Requires the `updates_manage` permission; if the create/update tools aren't available, the
-  team or user isn't entitled to manage announcements — say so rather than retrying.
+- Requires the `updates_manage` permission. Without it, create/update calls return "Access denied:
+  required permissions not met"; tell the user they need that permission rather than retrying.
 - Prefer `announcement_update` over stop-and-recreate. To take one down, set `stopped_at`, don't
   ask the user to delete it.
 - Never hand-construct the announcement URL — read `app_url` / `path` from the response.
