@@ -23,16 +23,18 @@ skill first, then come back here.
 
 On success, note from the response:
 - `user` (name/email) and `team.name` — confirm you're pointed at the right workspace.
-- `team.hubspot_connection` / `team.salesforce_connection` — whether a CRM is connected. This
-  determines whether process boards and sync-engine rules are usable yet (they operate on CRM
-  records). If neither is present, flag it and offer the **connect-integrations** skill.
+- `team.hubspot_connection` / `team.salesforce_connection` / `team.pipedrive_connection` — whether
+  a CRM is connected. This determines whether process boards and sync-engine rules are usable yet
+  (they operate on CRM records). If none is present, flag it and offer the **connect-integrations**
+  skill.
 
 ## Step 2 — Assess the current state
 
 Before proposing anything, get the lay of the land (use pagination — see
 build-rules-and-boards for the page_size/include_count convention):
 - `collections` — existing Bases and content areas.
-- `sync_engine_rulesets` / `sync_engine_rules` — existing CRM logic.
+- `sync_engine_rules` — existing CRM logic. Rulesets come back in the same list as
+  `sync_engine_ruleset` entries.
 - `process_boards` / `composite_process_boards` — existing tracking views.
 - `action_plans` — existing plans and templates.
 
@@ -62,8 +64,6 @@ process rules, use **check-crm-changes**.
 
 For a true from-scratch onboarding, a good default first-run order is: connect CRM → one
 Collection with a couple of cards → one page trigger → one ruleset + rule → one process board.
-This mirrors Supered's own in-app onboarding checklist (extension installed, first card, first
-trigger, CRM connected, first rule).
 
 ## Step 4 — Build, confirming each object
 

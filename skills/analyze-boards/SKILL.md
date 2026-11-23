@@ -43,13 +43,15 @@ Key fields:
   weeks for weekly). The denominator.
 - **Compliance rate** = `clean_periods / eligible_periods` (e.g. 8/10 = 80%).
 
-`board_streak_rollup` returns a `{date, value}` time series where `value` is the summed
-`min_violation_count` across the board on that date — use it to plot trends or spot when
-compliance improved or regressed.
+`board_streak_rollup` takes the board's `id` and its `board_type` (`PROCESS_BOARD` or
+`COMPOSITE_PROCESS_BOARD`), and optionally `user_ids` to narrow it to specific people. It returns
+a time series of `{label, value, exempt}`: `label` is the period (e.g. "May 14"), `value` is the
+total violation count across the selected users for that period, and `exempt` marks periods the
+team excludes from streaks. Use it to plot trends or spot when compliance improved or regressed.
 
-**Date filters:** all four streak tools accept `filters` with optional `start_date` / `end_date`
-(ISO 8601). With no dates, the server defaults to the last 30 days — state the window you used
-when you report a rate.
+**Date filters:** all four streak tools accept `filters` with optional `date_start` / `date_end`
+(ISO 8601 dates) and `timezone` (IANA, defaults to UTC). With no dates, the server uses the last
+14 days — state the window you used when you report a rate.
 
 ## When a user has no streak data
 

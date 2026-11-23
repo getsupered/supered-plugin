@@ -17,7 +17,10 @@ description: >
   There is no collection id to pick when creating a prompt.
 - **Prompt** — a `title`, an optional `description` (shown in pickers next to the title, so make
   it say *when* to reach for the prompt), and a `body`. Read one with `prompt`; list/search with
-  `prompts`; write with `prompt_create` / `prompt_update`; remove with `prompt_delete`.
+  `prompts`; write with `prompt_create` / `prompt_update`.
+<!-- mcp-only -->
+- **Deleting** — remove a prompt with `prompt_delete`.
+<!-- /mcp-only -->
 - **Body** — inserted **verbatim** into the assistant's composer. Write it as the rep would type
   it: address the assistant directly, spell out the task, inputs, and desired output, and keep it
   self-contained. It is plain text, not markdown.
@@ -52,8 +55,10 @@ assistant in Analytics → Prompts.
    there is no partial patch). Send only the fields that change.
 5. To reorganize, use `prompt_update.parent_folder_id`, or `content_folder_update` to rename
    or nest folders.
+<!-- mcp-only -->
 6. `prompt_delete` soft-deletes; the prompt disappears from the library and every picker.
    Confirm before deleting.
+<!-- /mcp-only -->
 
 ## Pipedrive AI limit
 
@@ -74,9 +79,10 @@ the body under the limit or offer a shortened Pipedrive-specific variant.
 
 - Prompts are visible to the whole team as soon as they are created — confirm the body before
   writing.
-- Requires the `prompts_manage` permission ("Manage Prompts" on the team's roles page); if the write
-  tools aren't available, say so rather than retrying. Library folders need it too; `contents_manage`
-  alone does not reach into the library.
+- Requires the `prompts_manage` permission ("Manage Prompts" on the team's roles page). Without it,
+  write calls return "Access denied: required permissions not met"; tell the user they need that
+  permission rather than retrying. Library folders need it too; `contents_manage` alone does not
+  reach into the library.
 - Prefer `prompt_update` over delete-and-recreate; the prompt's id, folder, and usage analytics
   stay intact.
 - Never hand-construct a prompt URL — read `app_url` / `path` from the response.
